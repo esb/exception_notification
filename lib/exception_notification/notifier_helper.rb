@@ -27,13 +27,13 @@ module ExceptionNotification::NotifierHelper
     RAILS_DEFAULT_LOGGER.info("rendering section #{section.inspect}")
     summary = render("exception_notifier/#{section}").strip
     unless summary.blank?
-      title = render("exception_notifier/title", :locals => { :title => section }).strip
+      title = render(:partial => "exception_notifier/title", :locals => { :title => section }).strip
       "#{title}\n\n#{summary.gsub(/^/, "  ")}\n\n"
     end
   end
 
   def inspect_model_object(model, locals={})
-    render('exception_notifier/inspect_model',
+    render(:partial => 'exception_notifier/inspect_model',
       :locals => { :inspect_model => model,
                    :show_instance_variables => true,
                    :show_attributes => true }.merge(locals))
